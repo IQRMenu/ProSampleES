@@ -1,4 +1,5 @@
 export let globalData = {
+  cafeName: 'CafeNamePro',
   botToken: '',
   chatId: '-4653470805',
 

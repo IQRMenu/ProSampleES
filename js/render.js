@@ -247,18 +247,18 @@ fetchDishesList()
     const year = now.getFullYear(); // Год
     const date = `${day}.${month}.${year}`;
 
-    if (localStorage.getItem('userData')) {
+    if (localStorage.getItem(`userData-${globalData.cafeName}`)) {
       clientType = 'constantly';
-      if (JSON.parse(localStorage.getItem('userData')).datelastVisit != date) {
+      if (JSON.parse(localStorage.getItem(`userData-${globalData.cafeName}`)).datelastVisit != date) {
         console.log(date);
 
-        localStorage.removeItem('userData');
+        localStorage.removeItem(`userData-${globalData.cafeName}`);
         if (localStorage.getItem('table') != 'null') {
           tableNumber = localStorage.getItem('table');
         }
 
       } else {
-        userSavedData = JSON.parse(localStorage.getItem('userData'));
+        userSavedData = JSON.parse(localStorage.getItem(`userData-${globalData.cafeName}`));
         orderId = userSavedData.userOrderID;
         tableNumber = userSavedData.userTableNumber;
         yourOrderButton.innerHTML = `Ваш закза<br>№ ${orderId}`;
@@ -278,6 +278,9 @@ fetchDishesList()
       }
     } else {
       clientType = 'new';
+      if (localStorage.getItem('table') != 'null') {
+        tableNumber = localStorage.getItem('table');
+      }
     }
     renderDishesCategoryList(storeData);
 
@@ -287,7 +290,7 @@ fetchDishesList()
   })
   .catch(error => {
     // console.error('Ошибка при получении списка блюд:', error);
-    alert('Простите приложение временно недоступно')
+    alert(words[lang].appError)
   });
 
 
@@ -694,5 +697,5 @@ function saveDataToLocal() {
     userOrderID: orderId,
     datelastVisit: date,
   };
-  localStorage.setItem('userData', JSON.stringify(userData))
+  localStorage.setItem(`userData-${globalData.cafeName}`, JSON.stringify(userData))
 }

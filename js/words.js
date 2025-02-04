@@ -1,5 +1,6 @@
 export const words = {
   ru: {
+    appError: 'Простите приложение временно недоступно. Пожалуйста обратитесь к официантку.',
     discountButtonText: 'Предложение дня',
     visitorNnativeLanguage: "Родной язык посетителя - ",
     portion: "порция",
@@ -45,6 +46,7 @@ export const words = {
 
   },
   en: {
+    appError: 'Sorry, the app is temporarily unavailable. Please contact the waitress.',
     discountButtonText: 'Offer of the day',
     visitorNnativeLanguage: "Visitor's native language - ",
     portion: "portion",
@@ -88,6 +90,7 @@ export const words = {
     textMessage: "💵 Order payment!\n\nVisitor's native language - ${userLang}\n🍽️ Table № ${tableNumber}\n💶💳 Payment method - ${paymentMethod}\n#️⃣ Order number -\n${orderId}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   },
   es: {
+    appError: 'Lo sentimos, la aplicación no está disponible temporalmente. Por favor pregunte a la camarera.',
     discountButtonText: 'Oferta del día',
     visitorNnativeLanguage: "Idioma nativo del visitante - ",
     portion: "porción",
@@ -131,6 +134,7 @@ export const words = {
     textMessage: "💵 ¡Pago del pedido!\n\nIdioma nativo del visitante - ${userLang}\n🍽️ Mesa Nº ${tableNumber}\n💶💳 Método de pago - ${paymentMethod}\n#️⃣ Número de pedido -\n${orderId}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   },
   pt: {
+    appError: 'Desculpe, o aplicativo está temporariamente indisponível. Por favor, pergunte à garçonete.',
     discountButtonText: 'Oferta do dia',
     visitorNnativeLanguage: "Idioma nativo do visitante - ",
     portion: "porção",
