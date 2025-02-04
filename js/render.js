@@ -112,7 +112,7 @@ async function sendMessageForPay(type) {
   ordersList.forEach(item => {
     portionNumberMessage += 1;
     orderListTextforGoogle += `🔴${portionNumberMessage}. ${item.dishName} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}    `;
-    orderListText += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishNameMainLang}\n`;
+    orderListText += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
     totalCostMessage += item.totalCost;
   });
   const variables = {
@@ -536,7 +536,7 @@ async function sendOrder() {
     ordersList.forEach(item => {
       portionNumberMessage += 1;
       orderDishesLit += `${portionNumberMessage}. ${item.dishName}   `;
-      orderMessage += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishNameMainLang}\n`;
+      orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
       totalCostMessage += item.totalCost;
     });
     orderMessage += `\n ------------------- \n`;
@@ -548,7 +548,7 @@ async function sendOrder() {
   basketList.forEach(item => {
     portionNumberMessage += 1;
     orderDishesLit += `${portionNumberMessage}. ${item.dishName}   `;
-    orderMessage += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishNameMainLang}\n`;
+    orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
     totalCostMessage += item.totalCost;
   });
 
