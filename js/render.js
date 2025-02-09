@@ -111,7 +111,7 @@ async function sendMessageForPay(type) {
 
   ordersList.forEach(item => {
     portionNumberMessage += 1;
-    orderListTextforGoogle += `🔴${portionNumberMessage}. ${item.dishName} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}    `;
+    orderListTextforGoogle += `🔴${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}    `;
     orderListText += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
     totalCostMessage += item.totalCost;
   });
