@@ -354,8 +354,9 @@ function renderDishesList(category) {
         const dishCard = document.createElement('div');
         dishCard.dataset.id = dishitem.id;
         dishCard.classList.add('dishes-card');
+        const imgSrc = dishitem.img ? dishitem.img : '../img/samlesImg.png';
         dishCard.innerHTML = `
-          <img src="${dishitem.img}" alt="">
+          <img src="${imgSrc}" alt="">
           <div class="dishes-card__info">
             <div class="dishes-card__description">
               <h2>${dishitem[`${lang}DishesName`]}</h2>
