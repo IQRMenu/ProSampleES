@@ -685,6 +685,7 @@ button.basket-clouse_active {
   max-width: 300px;
   margin: 0 auto;
   flex-shrink: 0;
+  border: 1px solid;
 }
 
 .button-order.display_none {

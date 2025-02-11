@@ -150,30 +150,11 @@ async function sendMessageForPay(type) {
       }),
     });
     sendStatisticToForm(orderId, lang, tableNumber, clientType, orderListTextforGoogle, totalCostMessage, type);
+
     const data = await response.json();
     return data.ok ? 'ok' : 'error';
   } catch (error) {
     return 'error';
-  }
-}
-
-
-// Функция для заполнения формы
-function configureForm() {
-  const form = document.getElementById("sendOrderTable");
-  if (!form) {
-    console.error("Форма не найдена!");
-    return;
-  }
-  form.setAttribute("action", globalData.fotmAction);
-
-  for (const [inputId, nameValue] of Object.entries(globalData.inputNames)) {
-    const input = document.getElementById(inputId);
-    if (input) {
-      input.setAttribute("name", nameValue);
-    } else {
-      console.warn(`Инпут с ID '${inputId}' не найден.`);
-    }
   }
 }
 
@@ -205,7 +186,6 @@ if (globalData.version == 'basik') {
   sendOrderButton.disabled = false;
   annonceBblockDiv.classList.add('displayNone');
   body.classList.remove('event_none');
-  configureForm();
 }
 
 //функция для скрытия предупреждения
@@ -242,7 +222,6 @@ let clientType = '';
 fetchDishesList()
   .then(dishesList => {
     storeData = dishesList;
-    console.log(storeData);
     const now = new Date();
     const day = String(now.getDate()).padStart(2, '0'); // День
     const month = String(now.getMonth() + 1).padStart(2, '0'); // Месяц
@@ -336,9 +315,9 @@ function renderDishesCategoryList(dishesList) {
 
   });
   dishesCategoryListContainer.querySelector('button').classList.add('button_active');
-  if (addedCategories.has("discount")){
+  if (addedCategories.has("discount")) {
     renderDishesList("discount")
-  }else{
+  } else {
     renderDishesList(storeData[0][`${lang}Category`]);
   }
 }
@@ -380,11 +359,11 @@ function renderDishesList(category) {
             let portionInfoTex;
             let portionCostOld;
             let portionCost;
-            if (dishitem.discount == 'yes'){
+            if (dishitem.discount == 'yes') {
               portionCostOld = dishitem[`portionCost${index + 1}`];
               portionCost = dishitem[`portionCost${index + 1}Discount`];
               portionInfoTex = `<p class="portion-item__text"><span><span class="portion-name">${portionName}</span> - </span><span> <span class="portion-cost old">${portionCostOld}${globalData.currencySymbol}</span> <span class="portion-cost">${portionCost}${globalData.currencySymbol}</span></span></p>`
-            }else{
+            } else {
               portionCost = dishitem[`portionCost${index + 1}`];
               portionInfoTex = `<p class="portion-item__text"><span><span class="portion-name">${portionName}</span> - </span><span> <span class="portion-cost">${portionCost}${globalData.currencySymbol}</span></span></p>`
 
@@ -402,11 +381,11 @@ function renderDishesList(category) {
             const buttonPortionPlus = portionElement.querySelector('.portion-plus');
             buttonPortionPlus.addEventListener('click', () => {
               dishCard.classList.add('dishes-card_active');
-              basketUpdate('plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, dishitem.img, portionElement.querySelector('.portion-number'));
+              basketUpdate('plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
             });
             const buttonPortionMinus = portionElement.querySelector('.portion-minus');
             buttonPortionMinus.addEventListener('click', () => {
-              basketUpdate('minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, dishitem.img, portionElement.querySelector('.portion-number'));
+              basketUpdate('minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
             });
             portionsContainer.appendChild(portionElement);
           }
@@ -522,7 +501,7 @@ async function sendOrder() {
   sendOrderButton.disabled = true;
   let orderDishesLit = '';
   let orderTotolCost = '';
-  if (tableNumber == '') {
+  if (tableNumber == '' || tableNumber === null) {
     dialogBoxAppears('inpitTableNumber');
     sendOrderButton.disabled = false;
     return
@@ -604,17 +583,39 @@ async function sendOrder() {
 }
 
 // Функция для отправки закза в google form заказа
-function sendStatisticToForm(orderId, lang, tableNumber, client, orderDishesLit, orderTotolCost, type) {
-  const formSendOrderTable = document.getElementById('sendOrderTable');
-  document.querySelector('#inputOrderId').value = orderId;
-  document.querySelector('#inputLangOrderTable').value = lang;
-  document.querySelector('#inputTableNumberOrderTable').value = tableNumber;
-  document.querySelector('#inputVisitorTypeOrderTable').value = client;
-  document.querySelector('#inputDishesOrderTable').value = orderDishesLit;
-  document.querySelector('#inputTotolCostOrderTable').value = orderTotolCost;
-  document.querySelector('#inputType').value = type;
 
-  formSendOrderTable.submit();
+async function sendStatisticToForm(orderId, lang, tableNumber, client, orderDishesLit, orderTotolCost, type) {
+  const formData = new FormData();
+
+  // Динамически заполняем данные, используя соответствие inputId → name
+  formData.append(globalData.inputNames.inputOrderId, orderId);
+  formData.append(globalData.inputNames.inputLangOrderTable, lang);
+  formData.append(globalData.inputNames.inputTableNumberOrderTable, tableNumber);
+  formData.append(globalData.inputNames.inputVisitorTypeOrderTable, client);
+  formData.append(globalData.inputNames.inputDishesOrderTable, orderDishesLit);
+  formData.append(globalData.inputNames.inputTotolCostOrderTable, orderTotolCost);
+  formData.append(globalData.inputNames.inputType, type);
+
+  const formUrl = globalData.fotmAction; // Берём URL формы из globalData
+
+  let success = false;
+  let attempts = 0;
+  const maxAttempts = 5; // Ограничение по попыткам
+
+  while (!success && attempts < maxAttempts) {
+    try {
+      const response = await fetch(formUrl, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors", // Google Forms не поддерживает CORS, но данные отправляются
+      });
+
+      success = true;
+    } catch (error) {
+      attempts++;
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Ждём 2 секунды перед повторной отправкой
+    };
+  };
 };
 
 // Функция для рендеренга заказа
