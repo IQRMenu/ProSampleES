@@ -466,6 +466,7 @@ button.basket-clouse_active {
   text-decoration: line-through;
   transform: scale(70%);
   opacity: 0.8;
+  font-size: 16px !important;
 }
 
 .portion-item__text span {
@@ -541,7 +542,7 @@ button.basket-clouse_active {
   font-size: 24px;
 }
 
-.basket-box h4 {
+.basket-item__info h4 {
   color: var(--color3);
 }
 
@@ -984,4 +985,8 @@ footer a {
 .dialogBox__buttons .cancel-button{
   background-color: var(--color1);
   color: var(--color2);
+}
+
+.event_none{
+  pointer-events: none !important;
 }

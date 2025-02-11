@@ -37,20 +37,24 @@ function dialogBoxAppears(type, text = '') {
       `;
       wrapperDiv.classList.add('wrapper_active');
       dialogBoxDiv.querySelector('#cashButton').addEventListener('click', async () => {
+        dialogBoxDiv.classList.add('event_none');
         const trySend = await sendMessageForPay('cash');
         if (trySend === 'ok') {
           dialogBoxAppears('info', `${words[lang].waiterWillCome}`)
         } else {
           dialogBoxAppears('info', `${words[lang].errorInviteWaiter}`);
         }
+        dialogBoxDiv.classList.remove('event_none');
       });
       dialogBoxDiv.querySelector('#bankCardButton').addEventListener('click', async () => {
+        dialogBoxDiv.classList.add('event_none');
         const trySend = await sendMessageForPay('bankCard');
         if (trySend === 'ok') {
           dialogBoxAppears('info', `${words[lang].waiterWillCome}`)
         } else {
           dialogBoxAppears('info', `${words[lang].errorInviteWaiter}`);
         }
+        dialogBoxDiv.classList.remove('event_none');
       });
 
       dialogBoxDiv.querySelector('#cancelButton').addEventListener('click', () => {
@@ -145,8 +149,6 @@ async function sendMessageForPay(type) {
         parse_mode: 'Markdown',
       }),
     });
-    // const encodedText = encodeURIComponent(orderListTextforGoogle);
-    const encodedText = encodeURIComponent(orderListTextforGoogle);
     sendStatisticToForm(orderId, lang, tableNumber, clientType, orderListTextforGoogle, totalCostMessage, type);
     const data = await response.json();
     return data.ok ? 'ok' : 'error';
@@ -493,7 +495,7 @@ function renderBasketList() {
     <div class="basket-item__info">
       <h3>${item.dishName}</h3>
       <h4>${item.dishNameMainLang}</h4>
-      <p><span>${words[lang].portion}<span class="portion-name">${item.portionName}</span> - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
+      <p><span class="portion-name">${item.portionName} - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
       
     </div>
     `;
@@ -638,7 +640,7 @@ function renderOrderList() {
       <div class="basket-item__info">
         <h3>${item.dishName}</h3>
         <h4>${item.dishNameMainLang}</h4>
-        <p><span>${words[lang].portion}<span class="portion-name">${item.portionName}</span> - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
+        <p><span class="portion-name">${item.portionName} - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
         
       </div>
       <span class='orderTime'>${item.orderTime}</span>
