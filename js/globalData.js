@@ -1,7 +1,7 @@
 export let globalData = {
   cafeName: 'CafeNamePro',
   botToken: '',
-  chatId: '-4653470805',
+  chatId: '-4728665422',
 
   mainLang: 'es',
   currencySymbol: '$',

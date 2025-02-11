@@ -430,7 +430,6 @@ function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, p
     if (parseInt(portionNumberSpan.textContent) > 0) {
       portionNumberSpan.textContent = parseInt(portionNumberSpan.textContent) - 1;
       if (parseInt(portionNumberSpan.textContent) === 0) {
-        // if (confirm(`${words[lang].deletePortionMessage}`)) {}
         basketList = basketList.filter(item => item.dishId !== `${dishId}-${portionName}`);
         if (!basketList.some(obj => obj.dishName === dishName)) {
           document.querySelector(`[data-id="${dishId}"]`).classList.remove('dishes-card_active');
@@ -596,24 +595,24 @@ async function sendStatisticToForm(orderId, lang, tableNumber, client, orderDish
   formData.append(globalData.inputNames.inputTotolCostOrderTable, orderTotolCost);
   formData.append(globalData.inputNames.inputType, type);
 
-  const formUrl = globalData.fotmAction; // Берём URL формы из globalData
+  const formUrl = globalData.fotmAction; 
 
   let success = false;
   let attempts = 0;
-  const maxAttempts = 5; // Ограничение по попыткам
+  const maxAttempts = 5; 
 
   while (!success && attempts < maxAttempts) {
     try {
       const response = await fetch(formUrl, {
         method: "POST",
         body: formData,
-        mode: "no-cors", // Google Forms не поддерживает CORS, но данные отправляются
+        mode: "no-cors", 
       });
 
       success = true;
     } catch (error) {
       attempts++;
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Ждём 2 секунды перед повторной отправкой
+      await new Promise(resolve => setTimeout(resolve, 2000)); 
     };
   };
 };
