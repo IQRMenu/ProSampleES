@@ -115,8 +115,8 @@ async function sendMessageForPay(type) {
 
   ordersList.forEach(item => {
     portionNumberMessage += 1;
-    orderListTextforGoogle += `🔴${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}    `;
-    orderListText += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
+    orderListTextforGoogle += `🔴${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}    `;
+    orderListText += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
     totalCostMessage += item.totalCost;
   });
   const variables = {
@@ -381,11 +381,11 @@ function renderDishesList(category) {
             const buttonPortionPlus = portionElement.querySelector('.portion-plus');
             buttonPortionPlus.addEventListener('click', () => {
               dishCard.classList.add('dishes-card_active');
-              basketUpdate('plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
+              basketUpdate(dishitem[`${globalData.mainLang}Category`], 'plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
             });
             const buttonPortionMinus = portionElement.querySelector('.portion-minus');
             buttonPortionMinus.addEventListener('click', () => {
-              basketUpdate('minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
+              basketUpdate(dishitem[`${globalData.mainLang}Category`],'minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
             });
             portionsContainer.appendChild(portionElement);
           }
@@ -403,7 +403,9 @@ function renderDishesList(category) {
 }
 
 //Функция обновления корзины
-function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, portionCost, dishImg, portionNumberSpan) {
+function basketUpdate(category, action, dishId, dishName, dishNameMainLang, portionName, portionCost, dishImg, portionNumberSpan) {
+  console.log(category, action, dishId, dishName, dishNameMainLang, portionName, portionCost, dishImg, portionNumberSpan);
+  
   if (action === 'plus') {
     basketButtonOpen.classList.add('basket_have');
     portionNumberSpan.textContent = parseInt(portionNumberSpan.textContent) + 1;
@@ -412,6 +414,7 @@ function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, p
       basketList = basketList.map(item => item.dishId === `${dishId}-${portionName}` ? { ...item, portionNumber: parseInt(portionNumberSpan.textContent), totalCost: portionCost * parseInt(portionNumberSpan.textContent) } : item);
     } else {
       basketList.push({
+        mainLangCategory: category,
         dishIdCard: dishId,
         dishId: `${dishId}-${portionName}`,
         dishName: dishName,
@@ -432,7 +435,9 @@ function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, p
       if (parseInt(portionNumberSpan.textContent) === 0) {
         basketList = basketList.filter(item => item.dishId !== `${dishId}-${portionName}`);
         if (!basketList.some(obj => obj.dishName === dishName)) {
-          document.querySelector(`[data-id="${dishId}"]`).classList.remove('dishes-card_active');
+          if (document.querySelector(`[data-id="${dishId}"]`)){
+            document.querySelector(`[data-id="${dishId}"]`).classList.remove('dishes-card_active');
+          }
         }
         if (basketList.length === 0) {
           basketButtonOpen.classList.remove('basket_have');
@@ -472,19 +477,19 @@ function renderBasketList() {
     </div>
     <div class="basket-item__info">
       <h3>${item.dishName}</h3>
-      <h4>${item.dishNameMainLang}</h4>
+      <h4>${item.dishNameMainLang} (${item.mainLangCategory})</h4>
       <p><span class="portion-name">${item.portionName} - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
       
     </div>
     `;
     const buttonPortionPlus = basketItem.querySelector('.portion-plus');
     buttonPortionPlus.addEventListener('click', () => {
-      basketUpdate('plus', item.dishId.split('-')[0], item.dishName, item.dishNameMainLang, item.portionName, item.portionCost, item.dishImg, basketItem.querySelector('.portion-number'));
+      basketUpdate(item[`${globalData.mainLang}Category`],'plus', item.dishId.split('-')[0], item.dishName, item.dishNameMainLang, item.portionName, item.portionCost, item.dishImg, basketItem.querySelector('.portion-number'));
       renderDishesList(currentCategory);
     });
     const buttonPortionMinus = basketItem.querySelector('.portion-minus');
     buttonPortionMinus.addEventListener('click', () => {
-      basketUpdate('minus', item.dishId.split('-')[0], item.dishName, item.dishNameMainLang, item.portionName, item.portionCost, item.dishImg, basketItem.querySelector('.portion-number'));
+      basketUpdate(item[`${globalData.mainLang}Category`],'minus', item.dishId.split('-')[0], item.dishName, item.dishNameMainLang, item.portionName, item.portionCost, item.dishImg, basketItem.querySelector('.portion-number'));
       renderDishesList(currentCategory);
     });
     basketListContainer.appendChild(basketItem);
@@ -519,8 +524,8 @@ async function sendOrder() {
     orderMessage += `\n\n${words[globalData.mainLang].oldDishes}\n`;
     ordersList.forEach(item => {
       portionNumberMessage += 1;
-      orderDishesLit += `${portionNumberMessage}. ${item.dishName}   `;
-      orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
+      orderDishesLit += `${portionNumberMessage}. ${item.dishName} ${item.mainLangCategory}   `;
+      orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
       totalCostMessage += item.totalCost;
     });
     orderMessage += `\n ------------------- \n`;
@@ -531,8 +536,8 @@ async function sendOrder() {
 
   basketList.forEach(item => {
     portionNumberMessage += 1;
-    orderDishesLit += `${portionNumberMessage}. ${item.dishName}   `;
-    orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
+    orderDishesLit += `${portionNumberMessage}. ${item.dishName} (${item.mainLangCategory})  `;
+    orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
     totalCostMessage += item.totalCost;
   });
 
@@ -639,7 +644,7 @@ function renderOrderList() {
       </div>
       <div class="basket-item__info">
         <h3>${item.dishName}</h3>
-        <h4>${item.dishNameMainLang}</h4>
+        <h4>${item.dishNameMainLang} (${item.mainLangCategory})</h4>
         <p><span class="portion-name">${item.portionName} - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
         
       </div>

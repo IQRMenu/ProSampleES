@@ -1,5 +1,7 @@
+// https://script.google.com/macros/s/AKfycbwmM5d62aYv1p_ybR5i8l7lmHmUlxBZ2BrhZGnrYcqHOvbXJobGRp801BPgbdo_o5OV/exec - Pranzo
+// https://script.google.com/macros/s/AKfycbzebC0Dsz3W8Gmsq_FDbr0QDcsusV-pGn5PxkL1FtGUGPO7q0aFebuJH1SFYzak9qs2Gw/exec - Sample
 export function fetchDishesList() {
-  return fetch('https://script.google.com/macros/s/AKfycbzebC0Dsz3W8Gmsq_FDbr0QDcsusV-pGn5PxkL1FtGUGPO7q0aFebuJH1SFYzak9qs2Gw/exec')
+  return fetch('https://script.google.com/macros/s/AKfycbwmM5d62aYv1p_ybR5i8l7lmHmUlxBZ2BrhZGnrYcqHOvbXJobGRp801BPgbdo_o5OV/exec')
     .then(response => {
       if (!response.ok) {
         throw new Error('Сеть ответила с ошибкой: ' + response.status);
