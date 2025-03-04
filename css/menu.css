@@ -31,6 +31,7 @@ body {
 @keyframes loader {
   0% {
     transform: scale(100%);
+    
   }
 
   100% {
@@ -277,10 +278,10 @@ button.basket {
 }
 
 button.basket_have {
-  animation: pulse-wave 1s infinite linear;
+  animation: pulse-wave 1s infinite linear alternate;
 }
 
-@keyframes basketButton {
+/* @keyframes basketButton {
   0% {
     transform: scale(1);
     background-color: var(--color2);
@@ -290,7 +291,7 @@ button.basket_have {
     transform: scale(1.1);
     background-color: var(--color3);
   }
-}
+} */
 
 button.button_moveLeft {
   left: -48px;
@@ -523,18 +524,18 @@ button.basket-clouse_active {
 
 .basket-box {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   position: fixed;
   background-color: var(--color2);
   top: 0;
   left: 100%;
   transition: 0.5s;
   z-index: 13;
-  padding: 100px 20px 0;
+  padding: 90px 20px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
 
 .basket-box>h3 {
@@ -547,9 +548,6 @@ button.basket-clouse_active {
   font-size: 24px;
 }
 
-.basket-item__info h4 {
-  color: var(--color3);
-}
 
 .basket-list {
   flex-grow: 1;
@@ -606,6 +604,23 @@ button.basket-clouse_active {
   gap: 4px;
   flex-grow: 1;
 }
+
+.basket-item__info h3{
+  font-size: 18px;
+  line-height: 100%;
+}
+
+.basket-item__info h4 {
+  color: var(--color3);
+  line-height: 100%;
+  font-size: 16px;
+}
+
+.basket-item__info .portion-cost{
+  font-weight: 700;
+  font-size: 17px;
+}
+
 
 .basket-item__manage {
   display: flex;
@@ -686,11 +701,11 @@ button.basket-clouse_active {
   background-color: var(--color3);
   color: var(--color1);
   font-size: 20px;
-  border: 1px solid var(--color3);
   max-width: 300px;
   margin: 0 auto;
   flex-shrink: 0;
   border: 1px solid;
+  animation: pulse-wave 1s infinite linear alternate;
 }
 
 .button-order.display_none {
@@ -805,22 +820,22 @@ footer a {
 #yourOrder {
   background-color: var(--color3);
   color: var(--color1);
-  padding: 10px;
+  padding: 6px;
   border: 1px solid var(--color1);
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
-#yourOrder._active {
+/* #yourOrder._active {
   animation: pulse-wave 1s infinite linear;
-}
+} */
 
 .order-box {
   opacity: 0;
   visibility: hidden;
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   top: 0;
   left: 0;
   background-color: var(--color2);
@@ -903,6 +918,7 @@ footer a {
     outline: 1px solid var(--color1);
     /* Начальный размер волны */
     outline-offset: 0;
+    background-color: transparent;
   }
 
   100% {
@@ -910,6 +926,7 @@ footer a {
     /* Волна исчезает */
     outline-offset: 16px;
     /* Максимальное расстояние волны */
+    background-color: var(--color3);
   }
 }
 

@@ -381,11 +381,28 @@ function renderDishesList(category) {
             const buttonPortionPlus = portionElement.querySelector('.portion-plus');
             buttonPortionPlus.addEventListener('click', () => {
               dishCard.classList.add('dishes-card_active');
-              basketUpdate(dishitem[`${globalData.mainLang}Category`], 'plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
+              basketUpdate(
+                dishitem[`${globalData.mainLang}Category`],
+                'plus',
+                dishitem.id,
+                dishitem[`${lang}DishesName`],
+                dishitem[`${globalData.mainLang}DishesName`],
+                portionName,
+                portionCost,
+                imgSrc,
+                portionElement.querySelector('.portion-number'));
             });
             const buttonPortionMinus = portionElement.querySelector('.portion-minus');
             buttonPortionMinus.addEventListener('click', () => {
-              basketUpdate(dishitem[`${globalData.mainLang}Category`],'minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, imgSrc, portionElement.querySelector('.portion-number'));
+              basketUpdate(
+                dishitem[`${globalData.mainLang}Category`], 
+                'minus', 
+                dishitem.id, dishitem[`${lang}DishesName`], 
+                dishitem[`${globalData.mainLang}DishesName`], 
+                portionName, 
+                portionCost, 
+                imgSrc, 
+                portionElement.querySelector('.portion-number'));
             });
             portionsContainer.appendChild(portionElement);
           }
@@ -403,20 +420,28 @@ function renderDishesList(category) {
 }
 
 //Функция обновления корзины
-function basketUpdate(category, action, dishId, dishName, dishNameMainLang, portionName, portionCost, dishImg, portionNumberSpan) {
-  console.log(category, action, dishId, dishName, dishNameMainLang, portionName, portionCost, dishImg, portionNumberSpan);
-  
+function basketUpdate(
+  category, 
+  action, 
+  dishId, 
+  dishName, 
+  dishNameMainLang, 
+  portionName, 
+  portionCost, 
+  dishImg, 
+  portionNumberSpan) {
+
   if (action === 'plus') {
     basketButtonOpen.classList.add('basket_have');
     portionNumberSpan.textContent = parseInt(portionNumberSpan.textContent) + 1;
-    if (basketList.find(item => item.dishId === `${dishId}-${portionName}`)) {
+    if (basketList.find(item => item.dishId === `${dishId}-${portionCost}`)) {
       ;
-      basketList = basketList.map(item => item.dishId === `${dishId}-${portionName}` ? { ...item, portionNumber: parseInt(portionNumberSpan.textContent), totalCost: portionCost * parseInt(portionNumberSpan.textContent) } : item);
+      basketList = basketList.map(item => item.dishId === `${dishId}-${portionCost}` ? { ...item, portionNumber: parseInt(portionNumberSpan.textContent), totalCost: portionCost * parseInt(portionNumberSpan.textContent) } : item);
     } else {
       basketList.push({
         mainLangCategory: category,
         dishIdCard: dishId,
-        dishId: `${dishId}-${portionName}`,
+        dishId: `${dishId}-${portionCost}`,
         dishName: dishName,
         dishNameMainLang: dishNameMainLang,
         portionName: portionName,
@@ -433,9 +458,9 @@ function basketUpdate(category, action, dishId, dishName, dishNameMainLang, port
     if (parseInt(portionNumberSpan.textContent) > 0) {
       portionNumberSpan.textContent = parseInt(portionNumberSpan.textContent) - 1;
       if (parseInt(portionNumberSpan.textContent) === 0) {
-        basketList = basketList.filter(item => item.dishId !== `${dishId}-${portionName}`);
+        basketList = basketList.filter(item => item.dishId !== `${dishId}-${portionCost}`);
         if (!basketList.some(obj => obj.dishName === dishName)) {
-          if (document.querySelector(`[data-id="${dishId}"]`)){
+          if (document.querySelector(`[data-id="${dishId}"]`)) {
             document.querySelector(`[data-id="${dishId}"]`).classList.remove('dishes-card_active');
           }
         }
@@ -446,11 +471,13 @@ function basketUpdate(category, action, dishId, dishName, dishNameMainLang, port
         }
 
       } else {
-        basketList = basketList.map(item => item.dishId === `${dishId}-${portionName}` ? { ...item, portionNumber: parseInt(portionNumberSpan.textContent), totalCost: portionCost * parseInt(portionNumberSpan.textContent) } : item);
+        basketList = basketList.map(item => item.dishId === `${dishId}-${portionCost}` ? { ...item, portionNumber: parseInt(portionNumberSpan.textContent), totalCost: portionCost * parseInt(portionNumberSpan.textContent) } : item);
       }
     }
 
   }
+  console.log(basketList);
+  
   renderBasketList();
 }
 
@@ -484,16 +511,33 @@ function renderBasketList() {
     `;
     const buttonPortionPlus = basketItem.querySelector('.portion-plus');
     buttonPortionPlus.addEventListener('click', () => {
-      basketUpdate(item[`${globalData.mainLang}Category`],'plus', item.dishId.split('-')[0], item.dishName, item.dishNameMainLang, item.portionName, item.portionCost, item.dishImg, basketItem.querySelector('.portion-number'));
+      basketUpdate(
+        item[`${globalData.mainLang}Category`], 
+        'plus', 
+        item.dishId.split('-')[0], 
+        item.dishName, 
+        item.dishNameMainLang, 
+        item.portionName, 
+        item.portionCost, 
+        item.dishImg, 
+        basketItem.querySelector('.portion-number'));
       renderDishesList(currentCategory);
     });
     const buttonPortionMinus = basketItem.querySelector('.portion-minus');
     buttonPortionMinus.addEventListener('click', () => {
-      basketUpdate(item[`${globalData.mainLang}Category`],'minus', item.dishId.split('-')[0], item.dishName, item.dishNameMainLang, item.portionName, item.portionCost, item.dishImg, basketItem.querySelector('.portion-number'));
+      basketUpdate(
+        item[`${globalData.mainLang}Category`], 
+        'minus', item.dishId.split('-')[0], 
+        item.dishName, 
+        item.dishNameMainLang, 
+        item.portionName, 
+        item.portionCost, 
+        item.dishImg, 
+        basketItem.querySelector('.portion-number'));
       renderDishesList(currentCategory);
     });
     basketListContainer.appendChild(basketItem);
-    totalCost += item.totalCost;
+    totalCost += parseInt(item.totalCost);
   });
   document.getElementById('totalCost').innerHTML = `${words[lang].totalCost} <span>${totalCost}${globalData.currencySymbol}</span>`;
   saveDataToLocal();
@@ -600,24 +644,24 @@ async function sendStatisticToForm(orderId, lang, tableNumber, client, orderDish
   formData.append(globalData.inputNames.inputTotolCostOrderTable, orderTotolCost);
   formData.append(globalData.inputNames.inputType, type);
 
-  const formUrl = globalData.fotmAction; 
+  const formUrl = globalData.fotmAction;
 
   let success = false;
   let attempts = 0;
-  const maxAttempts = 5; 
+  const maxAttempts = 5;
 
   while (!success && attempts < maxAttempts) {
     try {
       const response = await fetch(formUrl, {
         method: "POST",
         body: formData,
-        mode: "no-cors", 
+        mode: "no-cors",
       });
 
       success = true;
     } catch (error) {
       attempts++;
-      await new Promise(resolve => setTimeout(resolve, 2000)); 
+      await new Promise(resolve => setTimeout(resolve, 2000));
     };
   };
 };
@@ -650,7 +694,7 @@ function renderOrderList() {
       </div>
       <span class='orderTime'>${item.orderTime}</span>
       `;
-    totalCost += item.totalCost;
+    totalCost += parseInt(item.totalCost);
     orderListDiv.appendChild(cardItem);
   });
   document.querySelector('#totalCostOrder').innerHTML = `${words[lang].totalCostOrder} <br> <span>${totalCost} ${globalData.currencySymbol}</span>`;
