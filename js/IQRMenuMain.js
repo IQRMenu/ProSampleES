@@ -113,7 +113,7 @@ export function main(fetchDishesList, words, globalData) {
       portionNumberMessage += 1;
       orderListTextforGoogle += `🔴${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}    `;
       orderListText += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
-      totalCostMessage += item.totalCost;
+      totalCostMessage += parseInt(item.totalCost);
     });
     const variables = {
       userLang: lang,
@@ -566,7 +566,7 @@ export function main(fetchDishesList, words, globalData) {
         portionNumberMessage += 1;
         orderDishesLit += `${portionNumberMessage}. ${item.dishName} ${item.mainLangCategory}   `;
         orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
-        totalCostMessage += item.totalCost;
+        totalCostMessage += parseInt(item.totalCost);
       });
       orderMessage += `\n ------------------- \n`;
       orderMessage += `\n${words[globalData.mainLang].newDishes}\n`;
@@ -578,7 +578,7 @@ export function main(fetchDishesList, words, globalData) {
       portionNumberMessage += 1;
       orderDishesLit += `${portionNumberMessage}. ${item.dishName} (${item.mainLangCategory})  `;
       orderMessage += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
-      totalCostMessage += item.totalCost;
+      totalCostMessage += parseInt(item.totalCost);
     });
 
     orderMessage += `\n\n💰 ${words[globalData.mainLang].totalCostOrder}  ${totalCostMessage}${globalData.currencySymbol}`;
