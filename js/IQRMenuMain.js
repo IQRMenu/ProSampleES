@@ -214,8 +214,8 @@ export function main(fetchDishesList, words, globalData) {
   let tableNumber = '';
   let orderId = '';
   let clientType = '';
-
-  fetchDishesList()
+  
+  fetchDishesList(globalData.sheetId)
     .then(dishesList => {
       storeData = dishesList;
       const now = new Date();

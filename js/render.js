@@ -219,7 +219,7 @@ let tableNumber = '';
 let orderId = '';
 let clientType = '';
 
-fetchDishesList()
+fetchDishesList(globalData.sheetId)
   .then(dishesList => {
     storeData = dishesList;
     const now = new Date();
