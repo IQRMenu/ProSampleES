@@ -22,7 +22,7 @@ body {
 
   font-family: "Nunito", sans-serif;
 
-  min-height: 100vh;
+  min-height: 100dvh;
   background-image: url(../img/header_main.jpg);
   background-position: center center;
   background-size: cover;

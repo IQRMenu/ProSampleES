@@ -36,7 +36,7 @@ export function main(fetchDishesList, words, globalData) {
           dialogBoxDiv.classList.add('event_none');
           const trySend = await sendMessageForPay('cash');
           if (trySend === 'ok') {
-            dialogBoxAppears('info', `${words[lang].waiterWillCome}`)
+            dialogBoxAppears('inpitPayCode', `${words[lang].inputPayCodeText}`)
           } else {
             dialogBoxAppears('info', `${words[lang].errorInviteWaiter}`);
           }
@@ -46,7 +46,7 @@ export function main(fetchDishesList, words, globalData) {
           dialogBoxDiv.classList.add('event_none');
           const trySend = await sendMessageForPay('bankCard');
           if (trySend === 'ok') {
-            dialogBoxAppears('info', `${words[lang].waiterWillCome}`)
+            dialogBoxAppears('inpitPayCode', `${words[lang].inputPayCodeText}`)
           } else {
             dialogBoxAppears('info', `${words[lang].errorInviteWaiter}`);
           }
@@ -90,7 +90,35 @@ export function main(fetchDishesList, words, globalData) {
             dialogBoxDiv.querySelector('p').innerText = `${words[lang].enterCorrectly}`;
           } else {
             tableNumber = parseInt(inputText);
-            sendOrder();
+            
+          };
+        });
+        break;
+
+      case 'inpitPayCode':
+        dialogBoxDiv.innerHTML = `
+          <p>${text}</p>
+          <input type='number' placeholder="">
+          <div class="dialogBox__buttons">
+            <button id="ok">Ок</button>
+          </div>
+        `;
+        wrapperDiv.classList.add('wrapper_active');
+        dialogBoxDiv.querySelector('#ok').addEventListener('click', () => {
+          const inputText = dialogBoxDiv.querySelector('input').value;
+          if (inputText == 'null' || isNaN(inputText) || inputText == '' || inputText === null || inputText != secretPayCodeGlobal) {
+            dialogBoxDiv.querySelector('p').innerText = `${words[lang].errorPayCode}`;
+            dialogBoxDiv.querySelector('input').value = '';
+          } else {
+            ordersList = [];
+            orderId = '';
+            renderOrderList();
+            yourOrderButton.innerHTML = '';
+            yourOrderButton.classList.remove('_active');
+            yourOrderButton.classList.add('_display_none');
+            orderBoxDiv.classList.remove('_show');
+            saveDataToLocal();
+            dialogBoxAppears('info', `${words[lang].finishText}`);
           };
         });
         break;
@@ -115,6 +143,7 @@ export function main(fetchDishesList, words, globalData) {
       orderListText += `\n${portionNumberMessage}. ${item.dishNameMainLang} (${item.mainLangCategory}) - ${item.portionName} x ${item.portionNumber} = ${item.totalCost}${globalData.currencySymbol}\n${item.dishName}\n`;
       totalCostMessage += parseInt(item.totalCost);
     });
+    const sectetPayCode = Math.floor(Math.random() * 100) + 1;
     const variables = {
       userLang: lang,
       orderId: orderId,
@@ -123,7 +152,7 @@ export function main(fetchDishesList, words, globalData) {
       orderListText: orderListText,
       totalCostMessage: totalCostMessage,
       currencySymbol: globalData.currencySymbol,
-
+      sectetPayCode: sectetPayCode,
     };
     let fullText = Object.keys(variables).reduce((text, key) => {
       // Если это orderId, оборачиваем его в обратные кавычки для машинописного шрифта
@@ -146,7 +175,7 @@ export function main(fetchDishesList, words, globalData) {
         }),
       });
       sendStatisticToForm(orderId, lang, tableNumber, clientType, orderListTextforGoogle, totalCostMessage, type);
-
+      secretPayCodeGlobal = sectetPayCode;
       const data = await response.json();
       return data.ok ? 'ok' : 'error';
     } catch (error) {
@@ -214,6 +243,7 @@ export function main(fetchDishesList, words, globalData) {
   let tableNumber = '';
   let orderId = '';
   let clientType = '';
+  let secretPayCodeGlobal;
 
   fetchDishesList(globalData.sheetId)
     .then(dishesList => {

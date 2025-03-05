@@ -42,7 +42,10 @@ export const words = {
     waiterWillCome: "Спасибо! Скоро к вам придет официант.",
     errorInviteWaiter: "Что-то пошло не так, пожалуйста пригласите официанта",
     enterCorrectly: "Пожалуйста введите корректно номер стола",
-    textMessage: "💵 Оплата заказа!\n\nРодной язык посетителя - ${userLang}\n🍽️ Стол № ${tableNumber}\n💶💳 Способ оплаты - ${paymentMethod}\n#️⃣ Номер закза -\n${orderId}\n\n📃 Вот чек:\n ${orderListText}\n💰 Итого: ${totalCostMessage} ${currencySymbol}\n",
+    errorPayCode: "Неверный код! Пожалуйста уточните у официанта.",
+    finishText: "Спасибо! Ждем Вас вновь!",
+    inputPayCodeText: "Сейчас к вам придет официант. После оплаты пожалуйста введите код оплаты. Официант вам его сообщит.",
+    textMessage: "💵 Оплата заказа!\n\nРодной язык посетителя - ${userLang}\n🍽️ Стол № ${tableNumber}\n💶💳 Способ оплаты - ${paymentMethod}\n#️⃣ Номер закза -\n${orderId}\n\n📃 Вот чек:\n ${orderListText}\n💰 Итого: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}",
 
 
   },
@@ -89,7 +92,10 @@ export const words = {
     waiterWillCome: "Thank you! A waiter will come to you soon.",
     errorInviteWaiter: "Something went wrong, please call a waiter.",
     enterCorrectly: "Please enter the table number correctly.",
-    textMessage: "💵 Order payment!\n\nVisitor's native language - ${userLang}\n🍽️ Table № ${tableNumber}\n💶💳 Payment method - ${paymentMethod}\n#️⃣ Order number -\n${orderId}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
+    errorPayCode: "Invalid code! Please check with the waiter.",
+    finishText: "Thank you! We look forward to seeing you again!",
+    inputPayCodeText: "The waiter will be with you shortly. After making the payment, please enter the payment code that they will provide.",
+    textMessage: "💵 Order payment!\n\nVisitor's native language - ${userLang}\n🍽️ Table № ${tableNumber}\n💶💳 Payment method - ${paymentMethod}\n#️⃣ Order number -\n${orderId}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}"
   },
   es: {
     loaderText: 'Cargando menú.<br>Por favor espere.',
@@ -134,7 +140,10 @@ export const words = {
     waiterWillCome: "¡Gracias! Un mesero vendrá pronto.",
     errorInviteWaiter: "Algo salió mal, por favor llama a un mesero.",
     enterCorrectly: "Por favor, ingresa correctamente el número de mesa.",
-    textMessage: "💵 ¡Pago del pedido!\n\nIdioma nativo del visitante - ${userLang}\n🍽️ Mesa Nº ${tableNumber}\n💶💳 Método de pago - ${paymentMethod}\n#️⃣ Número de pedido -\n${orderId}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
+    errorPayCode: "¡Código incorrecto! Por favor, consúltelo con el mozo.",
+    finishText: "¡Gracias! ¡Los esperamos de nuevo!",
+    inputPayCodeText: "En breve llegará el mozo. Después de realizar el pago, por favor ingrese el código de pago que él le proporcionará.",
+    textMessage: "💵 ¡Pago del pedido!\n\nIdioma nativo del visitante - ${userLang}\n🍽️ Mesa Nº ${tableNumber}\n💶💳 Método de pago - ${paymentMethod}\n#️⃣ Número de pedido -\n${orderId}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}"
   },
   pt: {
     loaderText: 'Carregando o menu.<br>Por favor aguarde.',
@@ -179,7 +188,10 @@ export const words = {
     waiterWillCome: "Obrigado! Um garçom virá até você em breve.",
     errorInviteWaiter: "Algo deu errado, por favor, chame um garçom.",
     enterCorrectly: "Por favor, insira o número da mesa corretamente.",
-    textMessage: "💵 Pagamento do pedido!\n\nIdioma nativo do visitante - ${userLang}\n🍽️ Mesa nº ${tableNumber}\n💶💳 Método de pagamento - ${paymentMethod}\n#️⃣ Número do pedido -\n${orderId}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
+    errorPayCode: "Código incorreto! Por favor, confirme com o garçom.",
+    finishText: "Obrigado! Esperamos vê-lo novamente!",
+    inputPayCodeText: "O garçom chegará em breve. Após o pagamento, por favor, insira o código de pagamento que ele lhe informará.",
+    textMessage: "💵 Pagamento do pedido!\n\nIdioma nativo do visitante - ${userLang}\n🍽️ Mesa nº ${tableNumber}\n💶💳 Método de pagamento - ${paymentMethod}\n#️⃣ Número do pedido -\n${orderId}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}"
   },
 
   tr: {
