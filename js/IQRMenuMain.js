@@ -90,7 +90,7 @@ export function main(fetchDishesList, words, globalData) {
             dialogBoxDiv.querySelector('p').innerText = `${words[lang].enterCorrectly}`;
           } else {
             tableNumber = parseInt(inputText);
-            
+            sendOrder();
           };
         });
         break;

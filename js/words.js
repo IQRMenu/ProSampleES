@@ -95,7 +95,7 @@ export const words = {
     errorPayCode: "Invalid code! Please check with the waiter.",
     finishText: "Thank you! We look forward to seeing you again!",
     inputPayCodeText: "The waiter will be with you shortly. After making the payment, please enter the payment code that they will provide.",
-    textMessage: "💵 Order payment!\n\nVisitor's native language - ${userLang}\n🍽️ Table № ${tableNumber}\n💶💳 Payment method - ${paymentMethod}\n#️⃣ Order number -\n${orderId}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}"
+    textMessage: "💵 Order payment!\n\nVisitor's native language - ${userLang}\n🍽️ Table № ${tableNumber}\n💶💳 Payment method - ${paymentMethod}\n#️⃣ Order number -\n${orderId}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Payment Success Code: ${sectetPayCode}"
   },
   es: {
     loaderText: 'Cargando menú.<br>Por favor espere.',
@@ -143,7 +143,7 @@ export const words = {
     errorPayCode: "¡Código incorrecto! Por favor, consúltelo con el mozo.",
     finishText: "¡Gracias! ¡Los esperamos de nuevo!",
     inputPayCodeText: "En breve llegará el mozo. Después de realizar el pago, por favor ingrese el código de pago que él le proporcionará.",
-    textMessage: "💵 ¡Pago del pedido!\n\nIdioma nativo del visitante - ${userLang}\n🍽️ Mesa Nº ${tableNumber}\n💶💳 Método de pago - ${paymentMethod}\n#️⃣ Número de pedido -\n${orderId}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}"
+    textMessage: "💵 ¡Pago del pedido!\n\nIdioma nativo del visitante - ${userLang}\n🍽️ Mesa Nº ${tableNumber}\n💶💳 Método de pago - ${paymentMethod}\n#️⃣ Número de pedido -\n${orderId}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Código de Pago Exitoso: ${sectetPayCode}"
   },
   pt: {
     loaderText: 'Carregando o menu.<br>Por favor aguarde.',
@@ -191,51 +191,6 @@ export const words = {
     errorPayCode: "Código incorreto! Por favor, confirme com o garçom.",
     finishText: "Obrigado! Esperamos vê-lo novamente!",
     inputPayCodeText: "O garçom chegará em breve. Após o pagamento, por favor, insira o código de pagamento que ele lhe informará.",
-    textMessage: "💵 Pagamento do pedido!\n\nIdioma nativo do visitante - ${userLang}\n🍽️ Mesa nº ${tableNumber}\n💶💳 Método de pagamento - ${paymentMethod}\n#️⃣ Número do pedido -\n${orderId}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Код - Успешная оплата: ${sectetPayCode}"
+    textMessage: "💵 Pagamento do pedido!\n\nIdioma nativo do visitante - ${userLang}\n🍽️ Mesa nº ${tableNumber}\n💶💳 Método de pagamento - ${paymentMethod}\n#️⃣ Número do pedido -\n${orderId}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n\n Código de Pagamento Bem-Sucedido: ${sectetPayCode}"
   },
-
-  tr: {
-    discountButtonText: 'Günün Teklifi',
-    visitorNnativeLanguage: "Ziyaretçinin ana dili - ",
-    portion: "porsiyon",
-    cost: "maliyet",
-    pieces: "adet",
-
-    totalCost: "Sepetteki yemeklerin maliyeti: <br>",
-    yourOrderTitle: "Siparişiniz",
-    sendOrder: "Siparişi Gönder",
-    updateOrder: "Siparişe Ekle",
-
-    yourCart: "Sepet:",
-    announcement: "",
-    announcementText: "İstediğiniz yemekleri seçin, ardından garsonu çağırın ve sepetinizi ona gösterin.",
-    googleFedback: "Geri bildirim bırakın",
-    deletePortionMessage: "Porsiyonu silmek istiyor musunuz?",
-
-    textSendOrder: "Sipariş başarıyla gönderildi!",
-    textErrorSendOrder: "Sipariş gönderilirken hata oluştu. Lütfen tekrar deneyin veya garsonu çağırın.",
-    textAskTableNumber: "Lütfen masa numarasını girin. Masa üzerindeki QR kodunda görebilirsiniz.",
-    totalCostOrder: "Sipariş tutarı: ",
-    yourOrderButton: "Siparişiniz<br>№",
-    payOrderButton: "Ödeme Yap",
-
-    tableNumber: "🍽️ Masa № ",
-    orderNumber: "#️⃣ Sipariş Numarası",
-    newOrderMessage: "‼️🔴 Yeni Sipariş!\n",
-    updateOrderMessage: "‼️🟢 Sipariş Güncellemesi\n",
-    oldDishes: "🟨 Önceki Yemekler:",
-    newDishes: "🟩 Yeni Yemekler:",
-    listDishes: "📃 Yemek Listesi:",
-
-    IQRMenuLink: "Menüyü Sipariş Et",
-    selectPaymentMethod: "Ödeme yöntemini seçin",
-    cash: "Nakit",
-    bankCard: "Kart",
-    cancelButton: "İptal",
-    waiterWillCome: "Teşekkürler! Garsonunuz yakında yanınıza gelecek.",
-    errorInviteWaiter: "Bir hata oluştu, lütfen garsonu çağırın",
-    enterCorrectly: "Lütfen masa numarasını doğru girin",
-    textMessage: "💵 Sipariş Ödemesi!\n\nZiyaretçinin ana dili - ${userLang}\n🍽️ Masa № ${tableNumber}\n💶💳 Ödeme yöntemi - ${paymentMethod}\n#️⃣ Sipariş Numarası -\n${orderId}\n\n📃 İşte fişiniz:\n ${orderListText}\n💰 Toplam: ${totalCostMessage} ${currencySymbol}\n",
-  },
-
 }
