@@ -378,10 +378,6 @@ export function main(fetchDishesList, words, globalData) {
           const portionNames = [dishitem.portionName1, dishitem.portionName2, dishitem.portionName3, dishitem.portionName4, dishitem.portionName5];
           portionNames.forEach((portionName, index) => {
             if (portionName) { // Проверяем, что название порции не пустое
-              const portionNumber = basketList.find(item => item.dishId === `${dishitem.id}-${portionName}`)?.portionNumber || 0;
-              if (portionNumber != 0) {
-                dishCard.classList.add('dishes-card_active');
-              }
               let portionInfoTex;
               let portionCostOld;
               let portionCost;
@@ -394,6 +390,11 @@ export function main(fetchDishesList, words, globalData) {
                 portionInfoTex = `<p class="portion-item__text"><span><span class="portion-name">${portionName}</span> - </span><span> <span class="portion-cost">${portionCost}${globalData.currencySymbol}</span></span></p>`
 
               }
+              const portionNumber = basketList.find(item => item.dishId === `${dishitem.id}-${portionCost}`)?.portionNumber || 0;
+              if (portionNumber != 0) {                
+                dishCard.classList.add('dishes-card_active');
+              }
+              
               const portionElement = document.createElement('div');
               portionElement.classList.add('portion-item');
               portionElement.innerHTML = `
